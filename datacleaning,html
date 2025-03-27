@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Cleaning Scripts</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container for the content */
+        .container {
+            width: 80%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        h2 {
+            color: #16a085;
+            margin-top: 20px;
+        }
+
+        .script-container {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+[27-03-2025 09:57 PM] ChatGPT: margin-bottom: 15px;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        code {
+            color: #c0392b;
+        }
+
+        .btn-copy {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #16a085;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-copy:hover {
+            background-color: #1abc9c;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #7f8c8d;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Data Cleaning Scripts</h1>
+
+        <h2>1. Remove Duplicate Rows</h2>
+        <div class="script-container">
+            <code>
+DELETE t1
+FROM your_table_name t1
+JOIN your_table_name t2
+  ON t1.column_name = t2.column_name
+  AND t1.id > t2.id;
+            </code>
+            <a href="#" class="btn-copy" onclick="copyText(0)">Copy Script</a>
+        </div>
+
+        <h2>2. Remove Rows with NULL Values</h2>
+<div class="script-container">
+            <code>
+DELETE FROM your_table_name
+WHERE column_name IS NULL;
+            </code>
+            <a href="#" class="btn-copy" onclick="copyText(1)">Copy Script</a>
+        </div>
+
+        <h2>3. Replace NULL with Default Value</h2>
+        <div class="script-container">
+            <code>
+UPDATE your_table_name
+SET column_name = 'default_value'
+WHERE column_name IS NULL;
+            </code>
+            <a href="#" class="btn-copy" onclick="copyText(2)">Copy Script</a>
+        </div>
+
+        <h2>4. Trim Whitespace from String Columns</h2>
+        <div class="script-container">
+            <code>
+UPDATE your_table_name
+SET column_name = TRIM(column_name)
+WHERE column_name IS NOT NULL;
+            </code>
+            <a href="#" class="btn-copy" onclick="copyText(3)">Copy Script</a>
+        </div>
+
+        <h2>5. Standardize Date Formats</h2>
+        <div class="script-container">
+            <code>
+UPDATE your_table_name
+SET date_column = STR_TO_DATE(date_column, '%m/%d/%Y')
+WHERE STR_TO_DATE(date_column, '%m/%d/%Y') IS NOT NULL;
+            </code>
+            <a href="#" class="btn-copy" onclick="copyText(4)">Copy Script</a>
+        </div>
+
+        <h2>6. Remove Non-Alphanumeric Characters</h2>
+<div class="script-container">
+            <code>
+UPDATE your_table_name
+SET column_name = REGEXP_REPLACE(column_name, '[^a-zA-Z0-9 ]', '')
+WHERE column_name IS NOT NULL;
+            </code>
+            <a href="#" class="btn-copy" onclick="copyText(5)">Copy Script</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Data Cleaning Scripts</p>
+        </footer>
+    </div>
+
+    <script>
+        const scripts = [
+            `DELETE t1
+FROM your_table_name t1
+JOIN your_table_name t2
+  ON t1.column_name = t2.column_name
+  AND t1.id > t2.id;`,
+
+            `DELETE FROM your_table_name
+WHERE column_name IS NULL;`,
+
+            `UPDATE your_table_name
+SET column_name = 'default_value'
+WHERE column_name IS NULL;`,
+
+            `UPDATE your_table_name
+SET column_name = TRIM(column_name)
+WHERE column_name IS NOT NULL;`,
+
+            `UPDATE your_table_name
+SET date_column = STR_TO_DATE(date_column, '%m/%d/%Y')
+WHERE STR_TO_DATE(date_column, '%m/%d/%Y') IS NOT NULL;`,
+
+            `UPDATE your_table_name
+SET column_name = REGEXP_REPLACE(column_name, '[^a-zA-Z0-9 ]', '')
+WHERE column_name IS NOT NULL;`
+        ];
+
+        function copyText(index) {
+            const text = scripts[index];
+            navigator.clipboard.writeText(text).then(() => {
+ alert("Script copied to clipboard!");
+            }).catch(err => {
+                alert("Failed to copy script: " + err);
+            });
+        }
+    </script>
+</body>
+</html>
